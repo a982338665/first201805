@@ -12,6 +12,74 @@
     同步后访问地址：https://a982338665.github.io/first201805/tata-demo/index.<br>
     相关文档帮助：<br>
         &nbsp;&nbsp;--1.git网站：pages.github.com<br>
-        &nbsp;&nbsp;--2.git网站绑定自己的域名：gitbeijing.com/pages.html
+        &nbsp;&nbsp;--2.git网站绑定自己的域名：gitbeijing.com/pages.html<br>
+    <br>
+    $ which git		                                查看git安装路径-Mac<br>
+    $ where git		                                查看git安装路径-Windows<br>
+    $ git config --list                             查看git配置信息（用户名，邮箱等）<br>
+    $ git config user.name                          查看git用户名配置<br>
+    $ git config --global user.name "John Doe" 		        用户基本信息配置-用户名(global对应Git三个级别的config文件：)<br>
+    $ git config --global user.email johndoe@example.com	用户基本信息配置-用户邮箱<br>
+    $ git config --local user.name NinputerWonder		    更改local级别下的用户名为NinputerWonder<br>
+    $ git config --local user.name 				            查看local级别下的用户名<br>
+    <br>
+    $ cd d:/Git_respon					                    进入选定的工作目录<br>
+    $ git init						                        初始化git仓库<br>
+    $ git add *.c						                    对某个文件纳入版本控制<br>
+    $ git add README					            纳入版本控制<br>
+    $ git commit -m 'initial project version'		提交内容且留言<br>
+    $ git commit -a -m 'added new benchmarks'		暂存起来一并提交，且注释（等同于add后commit）<br>
+    $ git commit --amend                            撤消刚才的提交操作<br>
+    $ git reset HEAD benchmarks.txt 			    取消暂存文件：--会继续追踪但是无快照<br>
+    $ git checkout -- benchmarks.txt			    修改后发现需要回退版本，恢复至上一个暂存版本<br>
+    <br>
+    $ git remote		                            查看远程仓库名称<br>
+    $ git remote -v 	                            查看远程仓库详情：显示对应的克隆地址<br>
+    $ git remote rm paul	                        删除本地远程仓库地址（paul为仓库名称）<br>
+    $ git remote rename pb paul				        重命名远程仓库（pb重命名为paul）<br>
+    $ git remote show [remote-name] 			    查看远程仓库详情最详细<br>
+    $ git remote add FirstGitHUb https://github.com/a982338665/test.git		添加远程仓库:(仓库名称：FirstGitHUb ）<br>
+    <br>
+    $ git fetch first     	                        同步远程仓库内容到本地<br>
+    $ git merge first/master                        强制更新到本地<br>
+    $ git push [remote-name] [branch-name]			推送本地到远程仓库：$ git push origin master<br>
+    $ git push -f origin master				        强制推送到远程仓库<br>
+    <br>
+    $ git clone https://gitee.com/a982338665/ResteasyComplexEx.git			        导出项目不进行重命名<br>
+    $ git clone https://gitee.com/a982338665/ResteasyComplexEx.git defineName ------导出此项目并重命名为defineName<br>
+    $ git status		检查文件状态（会显示当前分支）<br>
+    $ vim README		查看文件内容<br>
+    $ cat .gitignore	查看没有被纳入版本控制的文件<br>
+    $ git diff   		修改之后还没有暂存起来的变化内容（未提交和已提交区别）<br>
+    $ git diff --cached	已经暂存起来的文件和上次提交时的快照之间的差异<br>
+    $ git rm tt.txt		暂存区域移除,工作空间删除，放弃跟踪<br>
+    $ git rm -f tt.txt 	强制删除<br>
+    $ git rm log/\*.log	删除所有log/ 目录下扩展名为 .log 的文件<br>
+    $ git rm \*~		会递归删除当前目录及其子目录中所有 ~ 结尾的文件<br>
+    $ git rm --cached readme.txt				从跟踪清单中删除，但是保留在工作目录中（不小心纳入仓库的日志文件）<br>
+    $ git mv README.txt README1.txt				重命名或移动文件，移动文件时标注路径<br>
+    $ git log		    每次更新都有一个 SHA-1 校验和、作者的名字和电子邮件地址、提交时间，最后缩进一个段落显示提交说明。）<br>
+    $ git log -p -2 	-p 选项展开显示每次提交的内容差异，用 -2 则仅显示最近的两次更新)<br>
+    $ git log --stat 	仅显示简要的增改行数统计）<br>
+    <br>
+    $ git tag		    列标签）<br>
+    $ git tag -l 'v1.4.2.*'	模糊查询标签）<br>
+    <br>
+    $ git config --global alias.co checkout			git命令起别名<br>
+    $ git config --global alias.br branch			git命令起别名<br>
+    <br>
+    $ git branch testing	创建分支<br>
+    $ git checkout testing	切换分支<br>
+    $ git checkout -b iss53	创建+切换分支<br>
+    $ git branch		查看分支个数名称<br>
+    $ git branch -d test    删除分支（需要删除的分支不是当前正在打开的分支）<br>
+    $ git reflog        	查看分支散列值<br>
+    $ git branch 【branch_name】 HEAD@{4}  			恢复分支-不知道散列值，跟上个命令一起使用<br>
+    $ git branch 【branch_name】 【hash_val】			恢复分支-知道散列值<br>
+    <br>
+    github网站中可以使用的快捷键：<br>
+    &nbsp;&nbsp;-1.内容回复时：选中要回复内容+r<br>
+    &nbsp;&nbsp;-2.搜索文件时：t（进入仓库后）<br>
+    ________________________________
 </body>
 </html>
