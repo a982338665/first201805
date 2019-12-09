@@ -1,0 +1,75 @@
+
+
+    1.docker run ubuntu echo hello docker</br>
+      ·docker run   --运行</br>
+      ·ubuntu       --要运行的image的名字</br>
+      ·在ubuntu中运行命令 echo hello docker 输出 hello docker</br>
+    2.docker run nginx </br>
+      ·Unable to find image 'nginx:latest' locally</br></br>
+      ·在运行前先去查找本地是否有image的nginx，没有的话去远端的registery去下载</br>
+    3.docker images --查看本地所有的images</br>
+      ·REPOSITORY   TAG     imageid  created                size</br>
+        nginx-hello  latest  0dac...  28 minutes ago         182.8M</br>
+    4.docker run -p 8080:80 -d nginx-hello:latest （名称为docker images查出来的REPOSITORY的值+tag  -即路径）</br>
+      ·17add7....  --启动成功后返回一个container id</br>
+      ·-p 8080:80  --端口映射：指把nginx原来的80端口映射为8080端口进行开启</br>
+      ·-d          --允许此程序直接返回</br>
+      ·使用localhost:8080进行浏览器访问，可查看启动成功</br>
+    5.docker ps  --查看当前运行中的container</br>
+      ·CONTAINERID   IMAGE          COMMAND  CREATDE  STATUS   PORT  NAMES</br>
+        17add...      nginx-hello                               443/tcp. 0.0.0:8080->80/tcp </br>
+    5.1.docker ps -a --列出所有已运行过得容器，包含已经停止的容器（即运行容器的历史记录）</br>
+    6.docker cp index.html 17add7bbc...://usr/share/nginx/html</br>
+      ·将静态文件copy到17aa...的nginx服务器上，具体路径跟在后面</br>
+      ·此时访问：localhost:8080即可访问此文件</br>
+    7.docker stop 17add7bbc...</br></br>
+      ·停止17aa...的nginx服务</br>
+      ·docker run -p 8080:80 -d nginx-hello  --重新打开此服务，HTML文件丢失</br>
+      ·所以在进行文件修改后要记得提交：</br>
+    8.docker commit -m '提交注释' 17add...</br>
+      ·保存这个nginx服务（包含已修改文件）</br>
+      ·成功后返回：--一个image的id--即新建了一个image</br>
+        sha256:84ca813...</br>
+      ·docker images --此种提交方式没有指定名称，故如下</br>
+        ·REPOSITORY   TAG     imageid    created                size</br>
+          <none>       <none>  84ca813... 28 minutes ago         182.8M</br>
+    9.docker commit -m '提交注释' 17add... nginx-fun</br>
+       ·此种提交方式会有名称：</br>
+       ·docker images --此种提交方式没有指定名称，故如下</br>
+               ·REPOSITORY   TAG     imageid    created                size</br>
+                  nginx-fun   latest  84ca813... 28 minutes ago         182.8M</br>
+    10.docker rmi 84ca813...</br>
+        ·删除imageid为84ca813...的容器</br>
+        ·删除成功，返回：Deleted:sha256：...</br>
+        ·docker ps -a --列出所有已运行过得容器，包含已经停止的容器（即运行容器的历史记录）</br>
+    11.docker rm e7c.. 17a...</br>
+        ·删除以上两个id的容器，--基于此命令:docker ps -a -</br>
+    ****************************************************************************
+    12.docker pull      获取远端images</br>
+    13.docker build     创建images</br>
+    14.docker images    列出images</br>
+    15.docker run       运行container</br>
+    16.docker ps        列出container</br>
+    17.docker rm        删除已结束container</br>
+    18.docker rmi       删除image</br>
+    19.docker cp        在host和container之间拷贝文件</br></br>
+    20.docker commit    保存改动为新的image --创建新的镜像</br>
+    21.docker top 容器名 查看当前容器正在运行的进程</br>
+    22.docker inspect 容器名   --容器的相关信息-可查看挂载信息</br>
+    23.docker logs -f 容器名   --查看web应用日志</br>
+    24.docker search tomcat    --搜索tomcat镜像</br>
+    25.docker rmi $(docker images -q) --删除所有镜像</br>
+    26.docker rmi --force $(docker images | grep doss-api | awk '{print $3}') --强制删除镜像名称中包含“doss-api”的镜像
+       </br>
+    ****************************************************************************
+    docker 启动 web 示例报错如下：</br>
+        Error response from daemon: Cannot start container web: iptables failed: iptables -t nat -A DOCKER -p tcp -d 0/0 --dport 32797 -j DNAT --to-destination 172.17.0.30:5000 ! -i docker0: iptables: No chain/target/match by that name.
+       </br> 1</br>
+        解决办法：重建docker0网络恢复</br>
+        </br>
+        pkill docker </br></br>
+        iptables -t nat -F </br>
+        ifconfig docker0 down </br>
+        brctl delbr docker0 
+        docker -d 
+        service docker restart
